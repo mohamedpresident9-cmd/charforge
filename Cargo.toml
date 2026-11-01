@@ -1,0 +1,13 @@
+[package]
+name = "charforge"
+version = "0.1.0"
+edition = "2021"
+description = "Character studio: concurrent asset transport, local library, and studio UI"
+
+[dependencies]
+eframe = "0.29"
+sha2 = "0.10"
+
+[profile.dev.package."*"]
+# Dependencies (egui, winit, ...) are painfully slow in pure debug; optimize them only.
+opt-level = 2

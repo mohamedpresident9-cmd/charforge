@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  test-and-build:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # winit/glutin dlopen the X11 and GL libraries at runtime, but the build
+      # image is small and missing a few of them on some runner versions.
+      - name: Install Linux GUI headers
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libxkbcommon-dev libx11-dev libxi-dev libxcursor-dev \
+            libxrandr-dev libgl1-mesa-dev
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Tests
+        run: cargo test --locked
+
+      - name: Build (release)
+        run: cargo build --release --locked

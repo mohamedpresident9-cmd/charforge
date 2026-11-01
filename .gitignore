@@ -1,0 +1,13 @@
+/target
+**/*.rs.bk
+Cargo.lock.bak
+
+# local libraries created while running or smoke-testing
+charforge-library/
+_smoke_library/
+screenshot.png
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
