@@ -8,23 +8,36 @@
 
 ## المنصّات
 
-| المنصّة | المعمارية | الحزمة المنشورة |
-| --- | --- | --- |
-| Windows 10+ | x86_64 | `charforge-windows-x86_64.zip` → `charforge.exe` |
-| Linux (X11/Wayland) | x86_64 | `charforge-linux-x86_64.tar.gz` → `charforge` |
+| المنصّة | المعمارية | المُثبِّت (installer) | نسخة محمولة |
+| --- | --- | --- | --- |
+| Windows 10+ | x86_64 | `CharForge-<ver>-windows-x64-setup.exe` | `charforge-windows-x86_64.zip` |
+| Linux (X11/Wayland) | amd64 | `charforge_<ver>_amd64.deb` | `charforge-linux-x86_64.tar.gz` |
 
-الحزم تُبنى تلقائيًا في GitHub Actions عند كل وسم إصدار (`v*`) وتُرفَق بصفحة Releases؛ راجع `.github/workflows/release.yml`.
+كل الحزم تُبنى في GitHub Actions عند كل وسم إصدار (`v*`) وتُرفَق بصفحة Releases.
 
-## التشغيل من الحزمة
+## التثبيت
 
-- **Windows:** فُكّ الضغط وشغّل `charforge.exe`.
-- **Linux:**
-  ```bash
-  tar -xzf charforge-linux-x86_64.tar.gz
-  chmod +x charforge
-  ./charforge
-  ```
-  يحتاج سطح مكتب يعمل بـ OpenGL: حزم التشغيل الشائعة `libxkbcommon0`,`libx11-6`,`libgl1`.
+**Windows** — شغّل `CharForge-<ver>-windows-x64-setup.exe` ثم اتبع المعالج:
+
+```powershell
+# أو بصمت، من موجّه أوامر بصلاحيات المسؤول
+CharForge-0.1.1-windows-x64-setup.exe /VERYSILENT /NORESTART
+```
+
+- يُثبَّت في `%ProgramFiles%\CharForge` مع اختصار في قائمة ابدأ، واختياريًا على سطح المكتب.
+- إزالة التثبيت من «إضافة أو إزالة البرامج» (المُثبِّت يُنشئ مُلغِّيًا رسميًا).
+
+**Linux (Debian/Ubuntu وأشتقاقها):**
+
+```bash
+sudo apt install ./charforge_0.1.1_amd64.deb   # يحلّ تبعيات OpenGL/X11 تلقائيًا
+charforge                                       # أو من قائمة التطبيقات: CharForge Studio
+sudo apt remove charforge                       # إزالة
+```
+
+تعريف سطح المكتب في `/usr/share/applications/charforge.desktop`، والتنفيذي في `/usr/bin/charforge`.
+
+**بدون تثبيت (محمول):** فُكّ `charforge-windows-x86_64.zip` أو `charforge-linux-x86_64.tar.gz` وشغّل الملف مباشرة.
 
 ## البناء من المصدر
 

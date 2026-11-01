@@ -20,9 +20,9 @@ jobs:
       matrix:
         include:
           - os: windows-latest
-            asset: charforge-windows-x86_64.zip
+            kind: windows
           - os: ubuntu-latest
-            asset: charforge-linux-x86_64.tar.gz
+            kind: linux
 
     steps:
       - uses: actions/checkout@v4
@@ -41,18 +41,32 @@ jobs:
       - name: Build (release)
         run: cargo build --release --locked
 
-      - name: Package (Windows)
+      - name: Package portable + installer (Windows)
         if: runner.os == 'Windows'
-        run: Compress-Archive -Path target/release/charforge.exe -DestinationPath ${{ matrix.asset }}
+        shell: pwsh
+        run: |
+          $version = "${{ github.ref_name }}".TrimStart('v')
+          if (-not $version) { $version = "0.0.0" }
+          New-Item -ItemType Directory -Force -Path dist | Out-Null
+          Compress-Archive -Path target/release/charforge.exe -DestinationPath dist/charforge-windows-x86_64.zip
+          $iscc = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+          if (-not (Test-Path $iscc)) { throw "Inno Setup compiler not found at $iscc" }
+          & $iscc "/DMyAppVersion=$version" "installer\windows\charforge.iss"
+          if ($LASTEXITCODE -ne 0) { throw "ISCC failed" }
 
-      - name: Package (Linux)
+      - name: Package portable + .deb (Linux)
         if: runner.os == 'Linux'
-        run: tar -czf ${{ matrix.asset }} -C target/release charforge
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          if [ -z "$VERSION" ]; then VERSION="0.0.0"; fi
+          mkdir -p dist
+          tar -czf dist/charforge-linux-x86_64.tar.gz -C target/release charforge
+          bash packaging/linux/build-deb.sh "$VERSION"
 
       - uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.asset }}
-          path: ${{ matrix.asset }}
+          name: packages-${{ matrix.kind }}
+          path: dist/*
           if-no-files-found: error
 
   publish:
@@ -64,6 +78,9 @@ jobs:
         with:
           path: dist
           merge-multiple: true
+
+      - name: List packages
+        run: ls -l dist
 
       - uses: softprops/action-gh-release@v2
         with:
