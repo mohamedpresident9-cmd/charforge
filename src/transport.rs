@@ -194,7 +194,10 @@ pub fn download(
                         *parts[index as usize].lock().unwrap() = Some(bytes);
                     }
                     Err(error) => {
-                        errors.lock().unwrap().push(format!("part {index}: {error}"));
+                        errors
+                            .lock()
+                            .unwrap()
+                            .push(format!("part {index}: {error}"));
                         return;
                     }
                 }

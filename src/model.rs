@@ -165,27 +165,146 @@ impl Catalog {
         let mut assets = Vec::new();
 
         // Characters are not limited to humans: animals, vehicles and buildings are peers.
-        assets.push(asset("human_athlete", "Athlete", AssetClass::Human, AssetKind::Model, 1_310_720, 11));
-        assets.push(asset("human_child", "Child", AssetClass::Human, AssetKind::Model, 917_504, 12));
-        assets.push(asset("human_elder", "Elder", AssetClass::Human, AssetKind::Model, 1_048_576, 13));
-        assets.push(asset("animal_wolf", "Wolf", AssetClass::Animal, AssetKind::Model, 1_179_648, 21));
-        assets.push(asset("animal_horse", "Horse", AssetClass::Animal, AssetKind::Model, 1_441_792, 22));
-        assets.push(asset("animal_bird", "Bird", AssetClass::Animal, AssetKind::Model, 393_216, 23));
-        assets.push(asset("car_sedan", "Sedan", AssetClass::Car, AssetKind::Model, 2_097_152, 31));
-        assets.push(asset("car_truck", "Truck", AssetClass::Car, AssetKind::Model, 2_621_440, 32));
-        assets.push(asset("building_house", "House", AssetClass::Building, AssetKind::Model, 1_835_008, 41));
-        assets.push(asset("building_tower", "Tower", AssetClass::Building, AssetKind::Model, 3_407_872, 42));
+        assets.push(asset(
+            "human_athlete",
+            "Athlete",
+            AssetClass::Human,
+            AssetKind::Model,
+            1_310_720,
+            11,
+        ));
+        assets.push(asset(
+            "human_child",
+            "Child",
+            AssetClass::Human,
+            AssetKind::Model,
+            917_504,
+            12,
+        ));
+        assets.push(asset(
+            "human_elder",
+            "Elder",
+            AssetClass::Human,
+            AssetKind::Model,
+            1_048_576,
+            13,
+        ));
+        assets.push(asset(
+            "animal_wolf",
+            "Wolf",
+            AssetClass::Animal,
+            AssetKind::Model,
+            1_179_648,
+            21,
+        ));
+        assets.push(asset(
+            "animal_horse",
+            "Horse",
+            AssetClass::Animal,
+            AssetKind::Model,
+            1_441_792,
+            22,
+        ));
+        assets.push(asset(
+            "animal_bird",
+            "Bird",
+            AssetClass::Animal,
+            AssetKind::Model,
+            393_216,
+            23,
+        ));
+        assets.push(asset(
+            "car_sedan",
+            "Sedan",
+            AssetClass::Car,
+            AssetKind::Model,
+            2_097_152,
+            31,
+        ));
+        assets.push(asset(
+            "car_truck",
+            "Truck",
+            AssetClass::Car,
+            AssetKind::Model,
+            2_621_440,
+            32,
+        ));
+        assets.push(asset(
+            "building_house",
+            "House",
+            AssetClass::Building,
+            AssetKind::Model,
+            1_835_008,
+            41,
+        ));
+        assets.push(asset(
+            "building_tower",
+            "Tower",
+            AssetClass::Building,
+            AssetKind::Model,
+            3_407_872,
+            42,
+        ));
 
         // Animation clips: downloaded to the machine, then applied to a model.
-        assets.push(asset("anim_idle", "Idle loop", AssetClass::Human, AssetKind::Animation, 180_224, 51));
-        assets.push(asset("anim_walk", "Walk cycle", AssetClass::Human, AssetKind::Animation, 262_144, 52));
-        assets.push(asset("anim_run", "Run cycle", AssetClass::Animal, AssetKind::Animation, 311_296, 53));
-        assets.push(asset("anim_drive", "Drive by", AssetClass::Car, AssetKind::Animation, 393_216, 54));
+        assets.push(asset(
+            "anim_idle",
+            "Idle loop",
+            AssetClass::Human,
+            AssetKind::Animation,
+            180_224,
+            51,
+        ));
+        assets.push(asset(
+            "anim_walk",
+            "Walk cycle",
+            AssetClass::Human,
+            AssetKind::Animation,
+            262_144,
+            52,
+        ));
+        assets.push(asset(
+            "anim_run",
+            "Run cycle",
+            AssetClass::Animal,
+            AssetKind::Animation,
+            311_296,
+            53,
+        ));
+        assets.push(asset(
+            "anim_drive",
+            "Drive by",
+            AssetClass::Car,
+            AssetKind::Animation,
+            393_216,
+            54,
+        ));
 
         // Clothing: downloaded to the machine, then fitted to a character.
-        assets.push(asset("cloth_jacket", "Jacket", AssetClass::Human, AssetKind::Clothing, 229_376, 61));
-        assets.push(asset("cloth_boots", "Boots", AssetClass::Human, AssetKind::Clothing, 163_840, 62));
-        assets.push(asset("cloth_saddle", "Saddle", AssetClass::Animal, AssetKind::Clothing, 196_608, 63));
+        assets.push(asset(
+            "cloth_jacket",
+            "Jacket",
+            AssetClass::Human,
+            AssetKind::Clothing,
+            229_376,
+            61,
+        ));
+        assets.push(asset(
+            "cloth_boots",
+            "Boots",
+            AssetClass::Human,
+            AssetKind::Clothing,
+            163_840,
+            62,
+        ));
+        assets.push(asset(
+            "cloth_saddle",
+            "Saddle",
+            AssetClass::Animal,
+            AssetKind::Clothing,
+            196_608,
+            63,
+        ));
 
         Self { assets }
     }

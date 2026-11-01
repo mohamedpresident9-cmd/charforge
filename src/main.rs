@@ -68,8 +68,7 @@ fn library_root() -> PathBuf {
             }
         }
         if let Ok(home) = std::env::var("HOME") {
-            let candidate = PathBuf::from(home)
-                .join(".local/share/charforge/library");
+            let candidate = PathBuf::from(home).join(".local/share/charforge/library");
             if std::fs::create_dir_all(&candidate).is_ok() {
                 return candidate;
             }

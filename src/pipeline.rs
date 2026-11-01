@@ -277,7 +277,12 @@ fn worker_loop(
                 job.state = JobState::Running;
                 job.attempts += 1;
                 job.progress = 0.0;
-                Some((job.asset, job.quality, Arc::clone(&job.cancel), job.attempts))
+                Some((
+                    job.asset,
+                    job.quality,
+                    Arc::clone(&job.cancel),
+                    job.attempts,
+                ))
             }
         };
 
@@ -289,7 +294,14 @@ fn worker_loop(
 
         // ---- resolve the record now, not when the job was queued ----
         let Some(meta) = store.catalog().get(asset) else {
-            fail(&shared, &tx, id, "asset left the catalog".to_string(), attempt, max_attempts);
+            fail(
+                &shared,
+                &tx,
+                id,
+                "asset left the catalog".to_string(),
+                attempt,
+                max_attempts,
+            );
             continue;
         };
 
@@ -356,7 +368,14 @@ fn worker_loop(
 }
 
 /// Retry while attempts remain, otherwise mark the job failed for good.
-fn fail(shared: &SharedState, tx: &Sender<Event>, id: JobId, message: String, attempt: u32, max_attempts: u32) {
+fn fail(
+    shared: &SharedState,
+    tx: &Sender<Event>,
+    id: JobId,
+    message: String,
+    attempt: u32,
+    max_attempts: u32,
+) {
     let retry = attempt < max_attempts;
 
     {
@@ -401,7 +420,12 @@ mod tests {
         let mut root = std::env::temp_dir();
         root.push(format!("charforge_pipe_{}_{}", dir_tag, std::process::id()));
         let store = Arc::new(Store::open(&root, Catalog::load()).unwrap());
-        let engine = Engine::new(Arc::clone(&store), Arc::new(crate::transport::DemoSource), 2, 2);
+        let engine = Engine::new(
+            Arc::clone(&store),
+            Arc::new(crate::transport::DemoSource),
+            2,
+            2,
+        );
         (store, engine)
     }
 
@@ -448,6 +472,10 @@ mod tests {
             .into_iter()
             .find(|v| v.id == id)
             .expect("job exists");
-        assert!(view.state == JobState::Cancelled || view.state == JobState::Running || view.state == JobState::Done);
+        assert!(
+            view.state == JobState::Cancelled
+                || view.state == JobState::Running
+                || view.state == JobState::Done
+        );
     }
 }

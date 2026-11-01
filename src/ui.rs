@@ -100,7 +100,8 @@ impl App {
         match action {
             Action::Download(id, quality) => {
                 let handle = self.engine.enqueue(id, quality);
-                self.log.push(format!("queued {} ({}) as #{handle}", id, quality.label()));
+                self.log
+                    .push(format!("queued {} ({}) as #{handle}", id, quality.label()));
             }
             Action::Cancel(job) => self.engine.cancel(job),
             Action::Delete(id, quality) => {
@@ -260,11 +261,7 @@ impl eframe::App for App {
 
         egui::CentralPanel::default().show(ctx, |ui| {
             let rows = self.catalog.filter(self.class, self.kind);
-            ui.heading(format!(
-                "{} · {}",
-                self.class.label(),
-                self.kind.label()
-            ));
+            ui.heading(format!("{} · {}", self.class.label(), self.kind.label()));
 
             if rows.is_empty() {
                 ui.label("Nothing in this shelf yet.");
@@ -317,8 +314,9 @@ fn asset_card(
                 );
             });
 
-            ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
-                match job {
+            ui.with_layout(
+                egui::Layout::right_to_left(egui::Align::Center),
+                |ui| match job {
                     Some(job) => {
                         ui.add(egui::ProgressBar::new(job.progress).desired_width(140.0));
                         if ui.button("Cancel").clicked() {
@@ -343,8 +341,8 @@ fn asset_card(
                         }
                         ui.label(egui::RichText::new("remote").weak());
                     }
-                }
-            });
+                },
+            );
         });
     });
     action
