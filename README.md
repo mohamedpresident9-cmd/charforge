@@ -4,7 +4,7 @@
 
 > **ما هذا وما ليس:** تطبيق جديد مستقل، وليس نسخة من `Fuse.exe` ولا تفريغًا لكوده. بُني على **المبادئ الهندسية** التي أثبتها تحليل ذلك الملف: طابور FIFO، حارس تنفيذ واحد لكل هدف، حل كسول للسجلات عند السحب، ومجموعة عمّال. أما تقسيم الحمولة إلى أجزاء (chunking) فهذه إضافة خاصة بنا لم تكن موجودة في الأصل.
 
-[![CI](https://github.com/OWNER/charforge/actions/workflows/ci.yml/badge.svg)](../../actions/workflows/ci.yml)
+[![CI](https://github.com/mohamedpresident9-cmd/charforge/actions/workflows/ci.yml/badge.svg)](../../actions/workflows/ci.yml)
 
 ## المنصّات
 
