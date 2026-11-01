@@ -21,7 +21,7 @@
 
 ```powershell
 # أو بصمت، من موجّه أوامر بصلاحيات المسؤول
-CharForge-0.1.1-windows-x64-setup.exe /VERYSILENT /NORESTART
+CharForge-0.1.2-windows-x64-setup.exe /VERYSILENT /NORESTART
 ```
 
 - يُثبَّت في `%ProgramFiles%\CharForge` مع اختصار في قائمة ابدأ، واختياريًا على سطح المكتب.
@@ -30,10 +30,12 @@ CharForge-0.1.1-windows-x64-setup.exe /VERYSILENT /NORESTART
 **Linux (Debian/Ubuntu وأشتقاقها):**
 
 ```bash
-sudo apt install ./charforge_0.1.1_amd64.deb   # يحلّ تبعيات OpenGL/X11 تلقائيًا
+sudo apt install ./charforge_0.1.2_amd64.deb   # يحلّ تبعيات OpenGL/X11 تلقائيًا
 charforge                                       # أو من قائمة التطبيقات: CharForge Studio
 sudo apt remove charforge                       # إزالة
 ```
+
+الحزمة مضغوطة بـ `xz` (لا `zstd`) لتُثبَّت على Debian 9+ وUbuntu 18.04+ أيضًا.
 
 تعريف سطح المكتب في `/usr/share/applications/charforge.desktop`، والتنفيذي في `/usr/bin/charforge`.
 

@@ -54,5 +54,6 @@ Licensed under the MIT license; see LICENSE in the source repository.
 EOF
 
 mkdir -p dist
-dpkg-deb --build --root-owner-group "$ROOT" "dist/charforge_${VERSION}_amd64.deb"
+# xz (not the runner default zstd) so the package installs on older Debian/Ubuntu too.
+dpkg-deb -Zxz --build --root-owner-group "$ROOT" "dist/charforge_${VERSION}_amd64.deb"
 echo "built dist/charforge_${VERSION}_amd64.deb"
